@@ -50,7 +50,7 @@ public class Main {
 
   @RequestMapping("/")
   String index() {
-    return "Hello World";
+    return "index";
   }
 
   @RequestMapping("/db")
