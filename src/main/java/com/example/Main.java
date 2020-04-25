@@ -79,6 +79,7 @@ public class Main {
     if (dbUrl == null || dbUrl.isEmpty()) {
       return new HikariDataSource();
     } else {
+      System.out.println("dbUrl not empty: " + dbUrl);
       HikariConfig config = new HikariConfig();
       config.setJdbcUrl(dbUrl);
       return new HikariDataSource(config);
