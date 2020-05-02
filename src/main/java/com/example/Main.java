@@ -88,6 +88,7 @@ public class Main {
     - pull out different attributes of the Expense object and write to table
    */
 
+  // TODO: add write into db functionality
   @PostMapping(value = "/api/add/expense", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity postExpenseController(@RequestBody Expense expense) {
     System.out.println("postExpenseController invoked");
