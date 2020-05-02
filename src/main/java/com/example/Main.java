@@ -23,8 +23,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -73,6 +78,21 @@ public class Main {
       model.put("message", e.getMessage());
       return "error";
     }
+  }
+
+  /*
+    - we need to make a POST route - DONE
+    - that takes in expense data -
+    - create Expense object
+    - write to database in a separate table
+    - pull out different attributes of the Expense object and write to table
+   */
+
+  @PostMapping(value = "/api/add/expense", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity postExpenseController(@RequestBody Expense expense) {
+    System.out.println("postExpenseController invoked");
+    System.out.println("expense is" + expense);
+    return new ResponseEntity<>(expense, HttpStatus.OK);
   }
 
   @Bean
