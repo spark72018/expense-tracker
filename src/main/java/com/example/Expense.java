@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 public class Expense {
     private String userId;
     private String name;
-    private int cost;
+    private double cost;
     private String note;
     private String dateOfPurchase;
     private @Id @GeneratedValue Long id;
