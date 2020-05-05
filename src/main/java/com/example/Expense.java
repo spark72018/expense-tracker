@@ -18,4 +18,10 @@ public class Expense {
     public Expense() {
         System.out.println("generated Id is: " + id);
     }
+
+    public String getAttributes() {
+        String output = "userId VARCHAR (50), name VARCHAR (50), cost DOUBLE PRECISION, note VARCHAR(50), dateOfPurchase VARCHAR(50)," +
+                "id integer PRIMARY KEY";
+        return output;
+    }
 }

@@ -93,6 +93,7 @@ public class Main {
   public ResponseEntity postExpenseController(@RequestBody Expense expense) {
     System.out.println("postExpenseController invoked");
     System.out.println("expense is" + expense);
+    DB.writeToTable("Expenses", expense, dataSource);
     return new ResponseEntity<>(expense, HttpStatus.OK);
   }
 
