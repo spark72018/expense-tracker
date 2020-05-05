@@ -42,7 +42,7 @@ public class DB {
         System.out.println("@createTable");
         Statement stmt = connection.createStatement();
         String inquiry = "CREATE TABLE IF NOT EXISTS " + tableName;
-        inquiry += " " + expense.getAttributes();
+        inquiry += " (" + expense.getAttributes() +")";
         stmt.executeUpdate(inquiry);
         System.out.println("created table called " + tableName);
     }
@@ -51,8 +51,9 @@ public class DB {
         System.out.println("@insertExpense");
         Statement stmt = connection.createStatement();
         String inquiry = "INSERT INTO " + tableName + " VALUES";
-        inquiry += " " + expense.getUserId() + " " +
-                expense.getName()+ " " + expense.getCost()+ " " + expense.getNote()+ " " + expense.getDateOfPurchase() + " " + expense.getId();
+        inquiry += " (" + expense.getUserId() + " " +
+                expense.getName()+ " " + expense.getCost()+ " " + expense.getNote()+ " "
+                + expense.getDateOfPurchase() + " " + expense.getId() + ")";
         stmt.executeUpdate(inquiry);
         System.out.println("inserted expense " + expense.toString());
     }
