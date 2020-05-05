@@ -52,8 +52,8 @@ public class DB {
         Statement stmt = connection.createStatement();
         String inquiry = "INSERT INTO " + tableName + " VALUES";
         inquiry += " (" + expense.getUserId() + " " +
-                expense.getName()+ " " + expense.getCost()+ " " + expense.getNote()+ " "
-                + expense.getDateOfPurchase() + " " + expense.getId() + ")";
+                expense.getName()+ ", " + expense.getCost()+ ", " + expense.getNote()+ ", "
+                + expense.getDateOfPurchase() + ", " + expense.getId() + ")";
         stmt.executeUpdate(inquiry);
         System.out.println("inserted expense " + expense.toString());
     }
