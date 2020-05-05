@@ -50,7 +50,7 @@ public class DB {
     private static void insertExpense(Connection connection, String tableName, Expense expense) throws SQLException {
         System.out.println("@insertExpense");
         Statement stmt = connection.createStatement();
-        String inquiry = "INSERT INTO " + tableName + " VALUES";
+        String inquiry = "INSERT INTO " + tableName + "(userid, name, cost, note, dateofpurchase) VALUES";
         inquiry += " (" + expense.getUserId() + ", " +
                 expense.getName()+ ", " + expense.getCost()+ ", " + expense.getNote()+ ", "
                 + expense.getDateOfPurchase() + ", " + expense.getId() + ")";
