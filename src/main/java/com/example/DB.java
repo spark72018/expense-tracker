@@ -54,6 +54,7 @@ public class DB {
         inquiry += " (" + expense.getUserId() + " " +
                 expense.getName()+ ", " + expense.getCost()+ ", " + expense.getNote()+ ", "
                 + expense.getDateOfPurchase() + ", " + expense.getId() + ")";
+        System.out.println(inquiry);
         stmt.executeUpdate(inquiry);
         System.out.println("inserted expense " + expense.toString());
     }
