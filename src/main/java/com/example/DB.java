@@ -51,7 +51,7 @@ public class DB {
         System.out.println("@insertExpense");
         Statement stmt = connection.createStatement();
         String inquiry = "INSERT INTO " + tableName + " VALUES";
-        inquiry += " (" + expense.getUserId() + " " +
+        inquiry += " (" + expense.getUserId() + ", " +
                 expense.getName()+ ", " + expense.getCost()+ ", " + expense.getNote()+ ", "
                 + expense.getDateOfPurchase() + ", " + expense.getId() + ")";
         System.out.println(inquiry);
