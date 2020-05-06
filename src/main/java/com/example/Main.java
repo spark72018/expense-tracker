@@ -87,6 +87,7 @@ public class Main {
     return new ResponseEntity<>(expense, HttpStatus.OK);
   }
 
+  // TODO: return proper JSON response
   @GetMapping(value = "/api/get-expenses")
   public ResponseEntity getExpensesController(@RequestParam String userId) {
     try {
