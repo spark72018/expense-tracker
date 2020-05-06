@@ -15,16 +15,18 @@ public class Expense {
     private double cost;
     private String note;
     private String dateOfPurchase;
-    private @Id @GeneratedValue(strategy=TABLE, generator="CUST_GEN") Long id;
+    private @Id int id;
+    private static int totalId = 0;
 
     public Expense() {
+        this.id = totalId++;
         System.out.println("generated Id is: " + id);
     }
 
     public String getAttributes() {
         String output = "userId VARCHAR(250), name VARCHAR(250), cost DOUBLE PRECISION, note " +
                 "VARCHAR(250), dateOfPurchase VARCHAR(250)," +
-                "id DOUBLE PRECISION PRIMARY KEY";
+                "id INTEGER PRIMARY KEY";
         return output;
     }
 }
