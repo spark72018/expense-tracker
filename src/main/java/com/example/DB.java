@@ -63,7 +63,9 @@ public class DB {
             System.out.println("SELECTED SHIT IS " + rs);
 
             while (rs.next()) {
-                System.out.println(rs.toString());
+                System.out.println("name = " + rs.getString("name"));
+                System.out.println("cost = " + rs.getDouble("cost"));
+                System.out.println("note = " + rs.getString("note"));
             }
             return rs;
 
