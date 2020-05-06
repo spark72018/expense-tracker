@@ -88,10 +88,15 @@ public class Main {
   }
 
   @GetMapping(value = "/api/get-expenses")
-  public ResponseEntity getExpensesController(@RequestParam String userId) {
-    System.out.println("/api/get-expenses route userId is " + userId);
-     ResultSet listOfExpenses = DB.getExpenses(userId, "Expenses", dataSource);
-     return new ResponseEntity<>(HttpStatus.OK);
+  public ResponseEntity getExpensesController(@RequestParam String userId){
+    try {
+      System.out.println("/api/get-expenses route userId is " + userId);
+      ResultSet listOfExpenses = DB.getExpenses(userId, "Expenses", dataSource);
+      ArrayList<Expense> wow = DB.formatGetExpensesQueryResults(listOfExpenses);
+      return new ResponseEntity<>(HttpStatus.OK);
+    } catch (Exception e) {
+      System.out.println("Oh shit " + e.getMessage());
+    }
   }
 
   @Bean
@@ -99,7 +104,6 @@ public class Main {
     if (dbUrl == null || dbUrl.isEmpty()) {
       return new HikariDataSource();
     } else {
-      System.out.println("dbUrl not empty: " + dbUrl);
       HikariConfig config = new HikariConfig();
       config.setJdbcUrl(dbUrl);
       return new HikariDataSource(config);
