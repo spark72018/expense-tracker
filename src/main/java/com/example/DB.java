@@ -51,15 +51,15 @@ public class DB {
         System.out.println("@insertExpense");
         Statement stmt = connection.createStatement();
         String inquiry = "INSERT INTO " + tableName + " (userid, name, cost, note, dateofpurchase, id) VALUES";
-        inquiry += " (" + expense.getUserId() + ", " +
-                expense.getName()+ ", " + expense.getCost()+ ", " + expense.getNote()+ ", "
-                + expense.getDateOfPurchase() + ", " + expense.getId() + ")";
+        inquiry += " (" + "'" + expense.getUserId() + "'" + ", " +
+                "'" + expense.getName() + "'" + ", " + "'" + expense.getCost()+ "'" + ", " + "'" + expense.getNote() + "'" + ", "
+                + "'" + expense.getDateOfPurchase() + "'" + ", " + "'" + expense.getId() + "'" + ")";
         System.out.println(inquiry);
         stmt.executeUpdate(inquiry);
         System.out.println("inserted expense " + expense.toString());
     }
 
-    public static void writeToTable(String tableName, Expense expense, DataSource dataSource){
+    public static void writeToTable(String tableName, Expense expense, DataSource dataSource) {
         try(Connection connection = dataSource.getConnection()){
             createTable(connection, tableName, expense);
             insertExpense(connection, tableName, expense);

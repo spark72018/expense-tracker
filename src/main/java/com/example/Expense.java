@@ -20,7 +20,8 @@ public class Expense {
     }
 
     public String getAttributes() {
-        String output = "userId VARCHAR(50), name VARCHAR(50), cost DOUBLE PRECISION, note VARCHAR(50), dateOfPurchase VARCHAR(50)," +
+        String output = "userId VARCHAR(250), name VARCHAR(250), cost DOUBLE PRECISION, note " +
+                "VARCHAR(250), dateOfPurchase VARCHAR(250)," +
                 "id integer PRIMARY KEY";
         return output;
     }
