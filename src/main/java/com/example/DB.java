@@ -1,6 +1,7 @@
 package com.example;
 
 import javax.sql.DataSource;
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,29 +15,6 @@ public class DB {
     public DB(){
 
     }
-
-    /*
-     String db(Map<String, Object> model) {
-    System.out.println("DB MODEL IS " + model);
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-      stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-      ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
-
-      ArrayList<String> output = new ArrayList<String>();
-      while (rs.next()) {
-        output.add("Read from DB: " + rs.getTimestamp("tick"));
-      }
-
-      model.put("records", output);
-      return "db";
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-  }
-     */
 
     public static void createTable(Connection connection, String tableName, Expense expense) throws SQLException {
         System.out.println("@createTable");
@@ -60,19 +38,36 @@ public class DB {
     }
 
     public static void writeToTable(String tableName, Expense expense, DataSource dataSource) {
-        try(Connection connection = dataSource.getConnection()){
+        try(Connection connection = dataSource.getConnection()) {
             createTable(connection, tableName, expense);
             insertExpense(connection, tableName, expense);
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
-
-            while (rs.next()) {
-                System.out.println(rs.toString());
-            }
+//            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
+//
+//            while (rs.next()) {
+//                System.out.println(rs.toString());
+//            }
 
         } catch (Exception e) {
             System.err.println("write to a table Failed " + e.getMessage());
         }
+    }
+
+    public static ResultSet getExpenses(String userId, String tableName, DataSource dataSource) {
+        try(Connection connection = dataSource.getConnection()) {
+            Statement stmt = connection.createStatement();
+            String queryString = "SELECT * FROM " + tableName + " WHERE " + "userId =" +
+                    " " + "'" + userId + "'"; // TODO: extract into fn
+            ResultSet rs = stmt.executeQuery(queryString);
+            System.out.println("queryString IS " + queryString);
+            System.out.println("SELECTED SHIT IS " + rs);
+            return rs;
+
+        } catch (Exception e) {
+            System.err.println("getting expenses failed " + e.getMessage());
+        }
+
+        return null;
     }
 
 

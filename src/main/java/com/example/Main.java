@@ -27,9 +27,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -80,21 +78,20 @@ public class Main {
     }
   }
 
-  /*
-    - we need to make a POST route - DONE
-    - that takes in expense data -
-    - create Expense object
-    - write to database in a separate table
-    - pull out different attributes of the Expense object and write to table
-   */
 
-  // TODO: add write into db functionality
   @PostMapping(value = "/api/add/expense", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity postExpenseController(@RequestBody Expense expense) {
     System.out.println("postExpenseController invoked");
     System.out.println("expense is" + expense);
     DB.writeToTable("Expenses", expense, dataSource);
     return new ResponseEntity<>(expense, HttpStatus.OK);
+  }
+
+  @GetMapping(value = "/api/get-expenses")
+  public ResponseEntity getExpensesController(@RequestParam String userId) {
+    System.out.println("/api/get-expenses route userId is " + userId);
+     ResultSet listOfExpenses = DB.getExpenses(userId, "Expenses", dataSource);
+     return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @Bean
@@ -108,5 +105,13 @@ public class Main {
       return new HikariDataSource(config);
     }
   }
-
+/*
+Next steps:
+- get all of a user's expense
+- sort user's expenses
+  - by cost
+  - by date (depends on us figuring out date shit)
+- filter user's expenses
+  - by category
+ */
 }
