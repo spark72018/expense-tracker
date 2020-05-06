@@ -52,7 +52,7 @@ public class DB {
         Statement stmt = connection.createStatement();
         String inquiry = "INSERT INTO " + tableName + " (userid, name, cost, note, dateofpurchase, id) VALUES";
         inquiry += " (" + "'" + expense.getUserId() + "'" + ", " +
-                "'" + expense.getName() + "'" + ", " + "'" + expense.getCost()+ "'" + ", " + "'" + expense.getNote() + "'" + ", "
+                "'" + expense.getName() + "'" + ", " + expense.getCost() + ", " + "'" + expense.getNote() + "'" + ", "
                 + "'" + expense.getDateOfPurchase() + "'" + ", " + "'" + expense.getId() + "'" + ")";
         System.out.println(inquiry);
         stmt.executeUpdate(inquiry);

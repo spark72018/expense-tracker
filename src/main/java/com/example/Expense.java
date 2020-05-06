@@ -5,6 +5,8 @@ import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 
+import static javax.persistence.GenerationType.TABLE;
+
 @Data
 @Entity
 public class Expense {
@@ -13,7 +15,7 @@ public class Expense {
     private double cost;
     private String note;
     private String dateOfPurchase;
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue(strategy=TABLE, generator="CUST_GEN") Long id;
 
     public Expense() {
         System.out.println("generated Id is: " + id);
@@ -22,7 +24,7 @@ public class Expense {
     public String getAttributes() {
         String output = "userId VARCHAR(250), name VARCHAR(250), cost DOUBLE PRECISION, note " +
                 "VARCHAR(250), dateOfPurchase VARCHAR(250)," +
-                "id integer PRIMARY KEY";
+                "id DOUBLE PRECISION PRIMARY KEY";
         return output;
     }
 }
