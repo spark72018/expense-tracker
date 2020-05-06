@@ -61,6 +61,10 @@ public class DB {
             ResultSet rs = stmt.executeQuery(queryString);
             System.out.println("queryString IS " + queryString);
             System.out.println("SELECTED SHIT IS " + rs);
+
+            while (rs.next()) {
+                System.out.println(rs.toString());
+            }
             return rs;
 
         } catch (Exception e) {
