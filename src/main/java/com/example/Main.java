@@ -91,10 +91,9 @@ public class Main {
   public ResponseEntity getExpensesController(@RequestParam String userId) {
     try {
       System.out.println("/api/get-expenses route userId is " + userId);
-      ResultSet listOfExpenses = DB.getExpenses(userId, "Expenses", dataSource);
-      ArrayList<Expense> wow = DB.formatGetExpensesQueryResults(listOfExpenses);
+      ArrayList<Expense> listOfExpenses = DB.getExpenses(userId, "Expenses", dataSource);
       return new ResponseEntity<>(HttpStatus.OK);
-    } catch (SQLException e) {
+    } catch (Exception e) {
       System.out.println("Oh shit " + e.getMessage());
     }
     return new ResponseEntity<>(HttpStatus.OK);
