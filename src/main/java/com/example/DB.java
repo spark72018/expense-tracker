@@ -53,21 +53,22 @@ public class DB {
         }
     }
 
-    public static ResultSet getExpenses(String userId, String tableName, DataSource dataSource) {
+    public static ArrayList<Expense> getExpenses(String userId, String tableName, DataSource dataSource) {
         try(Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             String queryString = "SELECT * FROM " + tableName + " WHERE " + "userId =" +
                     " " + "'" + userId + "'"; // TODO: extract into fn
             ResultSet rs = stmt.executeQuery(queryString);
-            System.out.println("queryString IS " + queryString);
-            System.out.println("SELECTED SHIT IS " + rs);
+//            System.out.println("queryString IS " + queryString);
+//            System.out.println("SELECTED SHIT IS " + rs);
+//
+//            while (rs.next()) {
+//                System.out.println("name = " + rs.getString("name"));
+//                System.out.println("cost = " + rs.getDouble("cost"));
+//                System.out.println("note = " + rs.getString("note"));
+//            }
 
-            while (rs.next()) {
-                System.out.println("name = " + rs.getString("name"));
-                System.out.println("cost = " + rs.getDouble("cost"));
-                System.out.println("note = " + rs.getString("note"));
-            }
-            return rs;
+            return DB.formatGetExpensesQueryResults(rs);
 
         } catch (Exception e) {
             System.err.println("getting expenses failed " + e.getMessage());
@@ -80,9 +81,6 @@ public class DB {
         ArrayList<Expense> expenses = new ArrayList<>();
 
         while (rs.next()) {
-            System.out.println("name = " + rs.getString("name"));
-            System.out.println("cost = " + rs.getDouble("cost"));
-            System.out.println("note = " + rs.getString("note"));
             expenses.add(new Expense(
                     rs.getString("userId"),
                     rs.getString("name"),
