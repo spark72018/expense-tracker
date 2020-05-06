@@ -110,12 +110,13 @@ public class Main {
     }
   }
 /*
-Next steps:
-- get all of a user's expense
-- sort user's expenses
-  - by cost
-  - by date (depends on us figuring out date shit)
-- filter user's expenses
-  - by category
+  Next steps:
+    - get all of a user's expense - DONE
+    - create test expenses for development
+    - sort user's expenses
+      - by cost
+      - by date (depends on us figuring out date shit)
+    - filter user's expenses
+      - by category
  */
 }
