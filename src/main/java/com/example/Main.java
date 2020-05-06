@@ -81,8 +81,6 @@ public class Main {
 
   @PostMapping(value = "/api/add/expense", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity postExpenseController(@RequestBody Expense expense) {
-    System.out.println("postExpenseController invoked");
-    System.out.println("expense is" + expense);
     DB.writeToTable("Expenses", expense, dataSource);
     return new ResponseEntity<>(expense, HttpStatus.OK);
   }
@@ -91,9 +89,10 @@ public class Main {
   @GetMapping(value = "/api/get-expenses")
   public ResponseEntity getExpensesController(@RequestParam String userId) {
     try {
-      System.out.println("/api/get-expenses route userId is " + userId);
-      ArrayList<Expense> listOfExpenses = DB.getExpenses(userId, "Expenses", dataSource);
-      return new ResponseEntity<>(HttpStatus.OK);
+      if (userId != null) {
+        ArrayList<Expense> listOfExpenses = DB.getExpenses(userId, "Expenses", dataSource);
+        return new ResponseEntity<>(HttpStatus.OK);
+      }
     } catch (Exception e) {
       System.out.println("Oh shit " + e.getMessage());
     }

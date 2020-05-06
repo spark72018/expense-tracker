@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DB {
 
@@ -56,17 +57,8 @@ public class DB {
     public static ArrayList<Expense> getExpenses(String userId, String tableName, DataSource dataSource) {
         try(Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            String queryString = "SELECT * FROM " + tableName + " WHERE " + "userId =" +
-                    " " + "'" + userId + "'"; // TODO: extract into fn
+            String queryString = getSelectQueryString("*", tableName, userId);
             ResultSet rs = stmt.executeQuery(queryString);
-//            System.out.println("queryString IS " + queryString);
-//            System.out.println("SELECTED SHIT IS " + rs);
-//
-//            while (rs.next()) {
-//                System.out.println("name = " + rs.getString("name"));
-//                System.out.println("cost = " + rs.getDouble("cost"));
-//                System.out.println("note = " + rs.getString("note"));
-//            }
 
             return DB.formatGetExpensesQueryResults(rs);
 
@@ -75,6 +67,17 @@ public class DB {
         }
 
         return null;
+    }
+
+    private static String getSelectQueryString(
+            String selectString,
+            String tableName,
+            String userId)
+    {
+        String queryString = "SELECT" + " " + selectString + " " + tableName + " WHERE " +
+                "userId =" + " " + "'" + userId + "'";
+
+        return queryString;
     }
 
     public static ArrayList<Expense> formatGetExpensesQueryResults(ResultSet rs) throws SQLException {
