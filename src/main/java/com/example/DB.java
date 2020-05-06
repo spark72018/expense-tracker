@@ -76,5 +76,26 @@ public class DB {
         return null;
     }
 
+    public static ArrayList<Expense> formatGetExpensesQueryResults(ResultSet rs) throws SQLException {
+        ArrayList<Expense> expenses = new ArrayList<>();
+
+        while (rs.next()) {
+            System.out.println("name = " + rs.getString("name"));
+            System.out.println("cost = " + rs.getDouble("cost"));
+            System.out.println("note = " + rs.getString("note"));
+            expenses.add(new Expense(
+                    rs.getString("userId"),
+                    rs.getString("name"),
+                    rs.getDouble("cost"),
+                    rs.getString("note"),
+                    rs.getString("dateOfPurchase")
+            ));
+        }
+
+        System.out.println("expenses is " + expenses.toString());
+
+        return expenses;
+    }
+
 
 }

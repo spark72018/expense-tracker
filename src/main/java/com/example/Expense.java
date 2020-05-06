@@ -23,6 +23,14 @@ public class Expense {
         System.out.println("generated Id is: " + id);
     }
 
+    public Expense(String userId, String name, double cost, String note, String dateOfPurchase) {
+        this.userId = userId;
+        this.name = name;
+        this.cost = cost;
+        this.note = note;
+        this.dateOfPurchase = dateOfPurchase;
+    }
+
     public String getAttributes() {
         String output = "userId VARCHAR(250), name VARCHAR(250), cost DOUBLE PRECISION, note " +
                 "VARCHAR(250), dateOfPurchase VARCHAR(250)," +
