@@ -88,15 +88,16 @@ public class Main {
   }
 
   @GetMapping(value = "/api/get-expenses")
-  public ResponseEntity getExpensesController(@RequestParam String userId){
+  public ResponseEntity getExpensesController(@RequestParam String userId) {
     try {
       System.out.println("/api/get-expenses route userId is " + userId);
       ResultSet listOfExpenses = DB.getExpenses(userId, "Expenses", dataSource);
       ArrayList<Expense> wow = DB.formatGetExpensesQueryResults(listOfExpenses);
       return new ResponseEntity<>(HttpStatus.OK);
-    } catch (Exception e) {
+    } catch (SQLException e) {
       System.out.println("Oh shit " + e.getMessage());
     }
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @Bean
