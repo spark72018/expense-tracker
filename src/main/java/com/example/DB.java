@@ -1,6 +1,7 @@
 package com.example;
 
 import javax.sql.DataSource;
+import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +19,25 @@ public class DB {
         String inquiry = "CREATE TABLE IF NOT EXISTS " + tableName;
         inquiry += " (" + expense.getAttributes() +")";
         stmt.executeUpdate(inquiry);
+    }
+
+    public static ArrayList<Expense> sortExpenses(DataSource dataSource, String tableName, String userId, String predicate, boolean asc) throws SQLException {
+        try(Connection connection = dataSource.getConnection()){
+            Statement stmt = connection.createStatement();
+            String queryString = getSelectQueryString("*", tableName, userId);
+            queryString += "ORDER BY " + predicate;
+            if(asc){
+                queryString += " ASC";
+            } else{
+                queryString += " DESC";
+            }
+            System.out.println(queryString);
+            ResultSet rs = stmt.executeQuery(queryString);
+            return DB.formatGetExpensesQueryResults(rs);
+        } catch (Exception e){
+            System.err.println("Sorting a table Failed " + e.getMessage());
+        }
+        return null;
     }
 
     private static void insertExpense(Connection connection, String tableName, Expense expense) throws SQLException {
@@ -54,6 +74,16 @@ public class DB {
         }
 
         return null;
+    }
+
+    private static String getSelectQueryString(
+            String selectString,
+            String tableName)
+    {
+        String queryString = "SELECT" + " " + selectString + " " + tableName + " WHERE " +
+                "userId =" +  "'";
+
+        return queryString;
     }
 
     private static String getSelectQueryString(

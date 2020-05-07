@@ -99,6 +99,26 @@ public class Main {
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+
+  @GetMapping(value = "/api/sort-expenses")
+  public ResponseEntity sortExpensesController(@RequestParam String userId, String columnName, boolean asc) {
+    try {
+      if (userId != null) {
+        ArrayList<Expense> listOfExpenses = DB.sortExpenses(dataSource, "Expenses", userId, columnName, asc);
+        System.out.println("@sort-expenses");
+        for (Expense e: listOfExpenses) {
+          System.out.println(e.toString());
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+      }
+    } catch (Exception e) {
+      System.out.println("Oh shit " + e.getMessage());
+    }
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+
   @Bean
   public DataSource dataSource() throws SQLException {
     if (dbUrl == null || dbUrl.isEmpty()) {
@@ -118,5 +138,6 @@ public class Main {
       - by date (depends on us figuring out date shit)
     - filter user's expenses
       - by category
+    - generate (primary key) based on current table
  */
 }
